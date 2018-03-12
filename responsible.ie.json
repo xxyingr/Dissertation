@@ -396,23 +396,23 @@
                "description" : "Postfix",
                "product" : "Postfix"
             },
-            #declare to authrise the identity.
+            #server send hello to the clent
             "ehlo" : "250-vps.responsible.ie\r\n250-PIPELINING\r\n250-SIZE 52428800\r\n250-VRFY\r\n250-ETRN\r\n250-STARTTLS\r\n250-ENHANCEDSTATUSCODES\r\n250-8BITMIME\r\n250 DSN",
             #answer of cinnection to announce the server and related information.
             "banner" : "220 vps.responsible.ie ESMTP Postfix (Ubuntu)",
             "tls" : {
                "certificate" : {
                   "parsed" : {
+                     #client certificate check
                      "subject_dn" : "CN=vps.responsible.ie",
-                     #simple public key infrastructure
+                     #the encryption algorithm for server
                      "spki_subject_fingerprint" : "
                      630f64c8e0a988f6525ce9389269bb9a0ca7e3dcc17c0837d5fd1b49011d666a",
-                     #use MD5 to prodece server certificatie Hash value
+                     #server can agree to use md5 and sha256 to encrypt
                      "fingerprint_md5" : "def7d79ea971def88c60f0515ee5d200",
-                     #******DV for?
+                     #domain validation:to prove that server is the domain name owner which is the fastest to install
                      "validation_level" : "DV",
                      "redacted" : false,
-                     #####difference betwwen to fingerprint
                      "fingerprint_sha256" : "67745577fb2dfda3fcbd8b5528c7a8469638adb1dac1a18bb4f53de8b29ea53c",
                      "extensions" : {
                         "subject_key_id" : "889dab73fdd5279001ab3bdb34368889ad6b033e",
@@ -422,17 +422,20 @@
                         "signed_certificate_timestamps" : [
                            {}
                         ],
-                        #？？？？
-                        "crl_distribution_points" : [],
+
+                        "crl_distribution_points" : [],//to identify the location of the server
                         "authority_info_access" : {
-                          #online certifiate status protocol
                            "ocsp_urls" : [
+                             #address about OCSP responder
                               "http://ocsp.int-x3.letsencrypt.org"
                            ],
                            "issuer_urls" : [
+                             #information about how to get the issuer of thsi certificate
                               "http://cert.int-x3.letsencrypt.org/"
+                              #these are where client can download the issuer of the certificate
                            ]
                         },
+                        #for identifying the CA that signed the certificate
                         "authority_key_id" : "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
                         "key_usage" : {
                            "digital_signature" : true,
@@ -550,7 +553,7 @@
                      "nss" : {}
                   }
                },
-               #response for a certificate is pre-fetched
+
                "ocsp_stapling" : false,
                "version" : "TLSv1.2",
                "signature" : {
